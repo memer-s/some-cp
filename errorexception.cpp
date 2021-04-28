@@ -4,8 +4,23 @@
 #include <exception>
 using namespace std;
 
-void BadLengthException(int length) {
-	cout << "Too short: " << length;
+class BadLengthException
+{
+private:
+	int l;
+public:
+	BadLengthException(int);
+	int what();
+};
+
+BadLengthException::BadLengthException(int a)
+{
+	l = a;
+}
+
+int BadLengthException::what() 
+{
+	return l;
 }
 
 bool checkUsername(string username) {
@@ -34,7 +49,7 @@ int main() {
 			} else {
 				cout << "Invalid" << '\n';
 			}
-		} catch (BadLengthException e) {
+		} catch (BadLengthException e) { 
 			cout << "Too short: " << e.what() << '\n';
 		}
 	}
